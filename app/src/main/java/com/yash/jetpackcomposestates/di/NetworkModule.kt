@@ -18,7 +18,7 @@ class NetworkModule {
     @Provides
     fun providesRetrofit():Retrofit{
         return Retrofit.Builder()
-            .baseUrl("https://api.jsonbin.io")
+            .baseUrl("https://api.jsonbin.io/")
             .addConverterFactory(GsonConverterFactory.create())
             .build()
     }

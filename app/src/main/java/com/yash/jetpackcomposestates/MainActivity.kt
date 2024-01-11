@@ -27,12 +27,26 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.lifecycleScope
+import com.yash.jetpackcomposestates.api.TweetsApi
 import com.yash.jetpackcomposestates.ui.theme.JetpackComposeStatesTheme
+import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
+import javax.inject.Inject
 
+
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
+
+    @Inject
+    lateinit var tweetsApi: TweetsApi
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        lifecycleScope.launch {
+            val response = tweetsApi.getCategories()
+            Log.d("TESTRESPONSE",response.body().toString())
+        }
         setContent {
             JetpackComposeStatesTheme {
                 // A surface container using the 'background' color from the theme
