@@ -43,14 +43,6 @@ class MainActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        lifecycleScope.launch {
-            try {
-                val response = tweetsApi.getCategories()
-                Log.d("TESTRESPONSE",response.body().toString())
-            }catch (e:Exception){
-                Log.d("TESTRESPONSE","Error:- ${e.message}")
-            }
-        }
         setContent {
             JetpackComposeStatesTheme {
                 // A surface container using the 'background' color from the theme
