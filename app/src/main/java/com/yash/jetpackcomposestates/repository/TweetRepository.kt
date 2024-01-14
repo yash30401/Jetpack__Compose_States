@@ -24,7 +24,20 @@ class TweetRepository @Inject constructor(
                 emit(NetworkResult.Error(e.message))
             }
         }.catch {
-            NetworkResult.Error(it.message, null)
+            emit(NetworkResult.Error(it.message))
+        }.flowOn(Dispatchers.IO)
+    }
+
+    suspend fun getTweets(category:String):Flow<NetworkResult<List<TweetListItem>>>{
+        return flow {
+            try {
+                val response = tweetsApi.getTweets(category).await()
+                emit(NetworkResult.Success(response))
+            }catch (e:Exception){
+                emit(NetworkResult.Error(e.message))
+            }
+        }.catch {
+            emit(NetworkResult.Error(it.message))
         }.flowOn(Dispatchers.IO)
     }
 
