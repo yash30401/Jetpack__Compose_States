@@ -29,6 +29,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.lifecycleScope
 import com.yash.jetpackcomposestates.api.TweetsApi
+import com.yash.jetpackcomposestates.screens.CategoryScreen
+import com.yash.jetpackcomposestates.screens.DetailScreen
 import com.yash.jetpackcomposestates.ui.theme.JetpackComposeStatesTheme
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -46,12 +48,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             JetpackComposeStatesTheme {
                 // A surface container using the 'background' color from the theme
-                Surface(
-                    modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colorScheme.background
-                ) {
-
-                }
+              DetailScreen()
             }
         }
     }

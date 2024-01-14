@@ -15,29 +15,17 @@ class TweetRepository @Inject constructor(
     private val tweetsApi: TweetsApi
 ) {
 
-    suspend fun getCategories(): Flow<NetworkResult<List<String>>> {
+    suspend fun getCategories(): Flow<List<String>> {
         return flow {
-            try {
                 val response = tweetsApi.getCategories().await()
-                emit(NetworkResult.Success(response))
-            } catch (e: Exception) {
-                emit(NetworkResult.Error(e.message))
-            }
-        }.catch {
-            emit(NetworkResult.Error(it.message))
+                emit(response)
         }.flowOn(Dispatchers.IO)
     }
 
-    suspend fun getTweets(category:String):Flow<NetworkResult<List<TweetListItem>>>{
+    suspend fun getTweets(category:String):Flow<List<TweetListItem>>{
         return flow {
-            try {
-                val response = tweetsApi.getTweets(category).await()
-                emit(NetworkResult.Success(response))
-            }catch (e:Exception){
-                emit(NetworkResult.Error(e.message))
-            }
-        }.catch {
-            emit(NetworkResult.Error(it.message))
+                val response = tweetsApi.getTweets("tweets[?(@.category==\"$category\")]").await()
+                emit(response)
         }.flowOn(Dispatchers.IO)
     }
 
